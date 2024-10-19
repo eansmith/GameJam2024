@@ -77,7 +77,8 @@ public class GameManager : MonoBehaviour
         if(!task_counting){
             //generate random time to count down from
             task_counting = true;
-            task_timer = Random.Range(30,40);
+            //task_timer = Random.Range(30,40);
+            task_timer = 10;
             Debug.Log(task_timer);
         }
         else{
@@ -105,7 +106,7 @@ public class GameManager : MonoBehaviour
         }
         else{
             //activate a new task
-            tasks[taskInd].GetComponent<Task>().Activate();
+            tasks[0].GetComponent<Task>().Activate();
             taskActive = true;
         }
         
