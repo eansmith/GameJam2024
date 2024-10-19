@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class DeskController : MonoBehaviour
 {
+    public Transform chairPoint;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -19,7 +20,10 @@ public class DeskController : MonoBehaviour
         if (other.tag == "Child")
         {
             ChildController controller = other.gameObject.GetComponent<ChildController>();
-            controller.SitDown();
+            if (chairPoint.transform == controller.chair.transform)
+            {
+                controller.SitDown();
+            }
         }
     }
 }
