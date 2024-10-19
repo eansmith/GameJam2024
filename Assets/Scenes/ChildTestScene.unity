@@ -1064,6 +1064,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1305034674}
     - target: {fileID: 5348075367018033480, guid: 77fe9f7f1b8fbcb4cad7985060a085d1, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1891995528688540618}
+    - target: {fileID: 5348075367018033480, guid: 77fe9f7f1b8fbcb4cad7985060a085d1, type: 3}
       propertyPath: childHolder
       value: 
       objectReference: {fileID: 2140262883}
@@ -1129,6 +1133,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 009c23c5ee3cb62418171991a06f5606, type: 3}
+--- !u!114 &1891995528688540618 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5181516589531350774, guid: 009c23c5ee3cb62418171991a06f5606, type: 3}
+  m_PrefabInstance: {fileID: 1891995528688540617}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9fd7a330f47f5f4c95ae1e6f0c4cd13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4604456265887690093
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1177,6 +1192,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4317797708935734754, guid: 9d459467618338847998c6f41e26ef08, type: 3}
+      propertyPath: chairPoint
+      value: 
+      objectReference: {fileID: 1305034674}
     - target: {fileID: 7496639676006190824, guid: 9d459467618338847998c6f41e26ef08, type: 3}
       propertyPath: m_Name
       value: Desk
