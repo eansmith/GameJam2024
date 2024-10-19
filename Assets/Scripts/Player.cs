@@ -19,3 +19,4 @@ public class Player : MonoBehaviour
         health -= amount;
     }
 }
+    
