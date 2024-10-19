@@ -258,6 +258,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 7bf0244ce33ab476fadd7c18837b0028, type: 2}
   waitTime: 5
   countdownText: {fileID: 1255081477}
+  Player: {fileID: 1390475454}
 --- !u!23 &281245884
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -713,6 +714,17 @@ RectTransform:
   m_AnchoredPosition: {x: -24.471, y: -25.55}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1390475454 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 652782081352905621, guid: eed91bf282b15fa42839a892dfe6f8b8, type: 3}
+  m_PrefabInstance: {fileID: 4326189215027786764}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9fd7a330f47f5f4c95ae1e6f0c4cd13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4326189215027786764
 PrefabInstance:
   m_ObjectHideFlags: 0
