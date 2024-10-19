@@ -1,8 +1,7 @@
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class PencilTask : MonoBehaviour, Task
 {
-    public float health = 100;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -14,12 +13,12 @@ public class Player : MonoBehaviour
     {
         
     }
-    public void ReduceHealth(float amount)
-    {
-        health -= amount;
+
+    public void Activate(){
+
     }
 
-    public float GetHealth(){
-        return health; 
+    public void Deactivate(){
+        
     }
 }
