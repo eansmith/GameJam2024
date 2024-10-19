@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    float health = 100;
+    public float health = 100;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
