@@ -9,18 +9,35 @@ public class Screen : MonoBehaviour
 
     public float waitTime = 5f; // Time to wait before next click
     private float timer = 0f; // Time remaining for the wait
+    private float healthTimer = 0f; // Time in between slide changes
     private bool isClickable = true; // If the plane can be clicked
     public TextMeshProUGUI countdownText; 
+    public Player Player;
 
     void Start()
     {
         planeRenderer = GetComponent<Renderer>();
-        planeRenderer.material = slides[currentSlide]; // first slide
+        planeRenderer.material = slides[currentSlide]; // First slide
         countdownText.gameObject.SetActive(false); // Initially hide the timer 
     }
 
     void Update()
     {
+        // Measure time since last slide change for health reduction (exclusing exempt slides)
+        if (isClickable || currentSlide == 0 || currentSlide == 9 || currentSlide == 18)
+        {
+            healthTimer += Time.deltaTime;
+            if(healthTimer >= 10f) // 10 sec pass without a slide change = health reduction
+            {
+                Player.ReduceHealth(5f); // Reduce health by 5
+                healthTimer = 0f; // Reset health timer
+            }
+        }
+        else
+        {
+            healthTimer = 0f; //
+        }
+
         // If timer not finished, increment the timer
         if(!isClickable)
         {
@@ -59,6 +76,7 @@ public class Screen : MonoBehaviour
                 currentSlide = slides.Length - 1; // Stay on the last slide
             }
             planeRenderer.material = slides[currentSlide]; // Change the material
+            healthTimer = 0f; // Reset health timer on slide change
 
             // Reset click restriction if moving away from specific slides
             if (currentSlide != 0 && currentSlide != 9 && currentSlide != 18)
@@ -68,9 +86,3 @@ public class Screen : MonoBehaviour
         }
     }
 }
-
-
-
-/*
-I have a class called Player that has a ReduceHealth(float amount) method, 
-*/
