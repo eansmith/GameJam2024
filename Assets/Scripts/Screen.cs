@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using System.Collections;
 
 public class Screen : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class Screen : MonoBehaviour
     private bool isClickable = true; // If the plane can be clicked
     public TextMeshProUGUI countdownText; 
     public Player Player;
+    public GameManager manager;
 
     void Start()
     {
@@ -24,7 +26,7 @@ public class Screen : MonoBehaviour
     void Update()
     {
         // Measure time since last slide change for health reduction (exclusing exempt slides)
-        if (isClickable || currentSlide == 0 || currentSlide == 17)
+        if (isClickable || currentSlide == 0 || currentSlide ==slides.Length - 1)
         {
             healthTimer += Time.deltaTime;
             if(healthTimer >= 10f) // 10 sec pass without a slide change = health reduction
@@ -59,7 +61,7 @@ public class Screen : MonoBehaviour
         }
         else {
             // Hide the timer on exempt slides
-            if (currentSlide == 0 || currentSlide == 17)
+            if (currentSlide == 0 || currentSlide ==slides.Length - 1)
             {
                 //countdownText.gameObject.SetActive(false);
             }
@@ -69,9 +71,17 @@ public class Screen : MonoBehaviour
     void OnMouseDown()
     {
         // Allow clicking if timer expired OR on exempt slides
-        if (isClickable || currentSlide == 0 || currentSlide == 17)
+        if (isClickable || currentSlide == 0 || currentSlide ==slides.Length - 1)
         {
             currentSlide++;
+            if(currentSlide == 2)
+            {
+                manager.StartGame();
+            }
+            if(currentSlide == slides.Length - 1)
+            {
+                manager.WinGame();
+            }
             if (currentSlide >= slides.Length)
             {
                 currentSlide = slides.Length - 1; // Stay on the last slide
@@ -80,10 +90,13 @@ public class Screen : MonoBehaviour
             healthTimer = 0f; // Reset health timer on slide change
 
             // Reset click restriction if moving away from specific slides
-            if (currentSlide != 0 && currentSlide != 17)
+            if (currentSlide != 0 && currentSlide !=slides.Length - 1)
             {
                 isClickable = false; // Disable clicking until timer expires
             }
+            
         }
     }
+
+    
 }
