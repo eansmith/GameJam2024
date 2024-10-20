@@ -6,9 +6,10 @@ public class GameManager : MonoBehaviour
 {
     //public ChildController [] children; 
    public GameObject[] children;
+    public int taskInd;
    public GameObject [] tasks; 
    public GameObject [] desks;
-   public int taskInd; //current task
+   //public int taskInd; //current task
    public bool taskActive; 
    public bool kid_counting; //is counter already counting
    public bool task_counting;
@@ -16,6 +17,8 @@ public class GameManager : MonoBehaviour
    public float kid_timer;
    public float task_timer;
    public GameObject player;
+
+   public GameObject booktask;
    
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -29,9 +32,14 @@ public class GameManager : MonoBehaviour
         player = GameObject.Find("Player");
         children = GameObject.FindGameObjectsWithTag("Child");
         desks = GameObject.FindGameObjectsWithTag("Desk");
-        //tasks = GameObject.FindGameObjectsWithTag("TaskItem");
+        tasks = GameObject.FindGameObjectsWithTag("TaskItem");
+        booktask = GameObject.Find("BookTask");
+
+        taskInd = 0;
 
     }
+
+
 
     // Update is called once per frame
     void Update()
@@ -139,9 +147,19 @@ public class GameManager : MonoBehaviour
             player.GetComponent<Player>().ReduceHealth(10);
         }
         else{
-            //activate a new task
-            tasks[0].GetComponent<Task>().Activate();
-            taskActive = true;
+            //activate a new task that is not already active
+            if(taskInd == 0 && !tasks[0].GetComponent<Task>().IsActive()){
+                tasks[0].GetComponent<Task>().Activate();
+                taskActive = true;
+                taskInd = 1;
+            }
+
+            else if (taskInd == 1 && !booktask.GetComponent<Task>().IsActive()){
+                booktask.GetComponent<Task>().Activate();
+                taskActive = true;
+                taskInd = 0;
+            }
+
         }
         
     }

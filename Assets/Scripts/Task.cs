@@ -7,4 +7,6 @@ interface Task
     void Activate();
 
     void Deactivate();
+
+    bool IsActive();
 }

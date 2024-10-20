@@ -1,8 +1,10 @@
 using UnityEngine;
 using UnityEngine.UI;
-public class BookTask : MonoBehaviour
+public class BookTask : MonoBehaviour, Task
 {
     public KeyCode k1;
+    
+    public GameManager gm;
 
     public Player player;
     public bool inRadius;
@@ -28,7 +30,7 @@ public class BookTask : MonoBehaviour
     void Start()
     {
         task_timer = 0;
-
+        active = false;
         GameObject cvsc;
         cvsc = this.transform.GetChild(6).gameObject;
 
@@ -52,7 +54,7 @@ public class BookTask : MonoBehaviour
         L4.GetComponent<TMPro.TextMeshProUGUI>().color= new Color(255,255,255);
 
 
-        Activate();
+        //Activate();
 
 
     }
@@ -180,8 +182,12 @@ public class BookTask : MonoBehaviour
         }
     }
 
+    public bool IsActive(){
+        return active;
+    }
 
-    void Activate(){
+    public void Activate(){
+        Debug.Log("active");
 
         //this.SetActive(true);  
         taskUI.SetActive(true);         
@@ -223,6 +229,8 @@ public class BookTask : MonoBehaviour
 
     public void Deactivate(){
         taskUI.SetActive(false);
+        active = false;
+        gm.taskActive = false;
     }
 
 }

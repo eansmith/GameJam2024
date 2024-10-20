@@ -44,6 +44,11 @@ public class PencilTask : MonoBehaviour, Task
          
     }
 
+
+    public bool IsActive(){
+        return active;
+    }
+
     public void Activate(){
         for (int i = 0; i < pencils.Length; i++)
         {
@@ -80,6 +85,6 @@ public class PencilTask : MonoBehaviour, Task
 
     public void ReducePlayerHealth(){
         player.ReduceHealth(0.1f);
-        Debug.Log(player.GetHealth());
+        //Debug.Log(player.GetHealth());
     }
 }
