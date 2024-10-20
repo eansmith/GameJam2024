@@ -18,7 +18,7 @@ public class Screen : MonoBehaviour
     {
         planeRenderer = GetComponent<Renderer>();
         planeRenderer.material = slides[currentSlide]; // First slide
-        countdownText.gameObject.SetActive(false); // Initially hide the timer 
+        //countdownText.gameObject.SetActive(false); // Initially hide the timer 
     }
 
     void Update()
@@ -46,21 +46,21 @@ public class Screen : MonoBehaviour
             
             if(remainingTime >= 0)
             {
-                countdownText.text = $"Can proceed in\n{remainingTime:D} seconds";
-                countdownText.gameObject.SetActive(true); // Show timer while waiting
+                //countdownText.text = $"Can proceed in\n{remainingTime:D} seconds";
+                //countdownText.gameObject.SetActive(true); // Show timer while waiting
             }
             if (remainingTime <= 0)
             {
                 isClickable = true; // Allow clicking again after 5 seconds
                 timer = 0f; // Reset timer
-                countdownText.gameObject.SetActive(false); // Hide timer when finished
+                //countdownText.gameObject.SetActive(false); // Hide timer when finished
             }
         }
         else {
             // Hide the timer on exempt slides
             if (currentSlide == 0 || currentSlide == 9 || currentSlide == 18)
             {
-                countdownText.gameObject.SetActive(false);
+                //countdownText.gameObject.SetActive(false);
             }
         }
     }
