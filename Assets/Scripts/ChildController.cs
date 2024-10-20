@@ -19,6 +19,7 @@ public class ChildController : MonoBehaviour
     Animator animator;
 
     public Transform exit;
+    public Transform fight;
 
     public float pickUpDistance = 3;
     public Player player;
@@ -42,7 +43,7 @@ public class ChildController : MonoBehaviour
                 
                 if (!isPickedUp && !isWalkingtoFight && !player.isHoldingChild)
                 {
-                    if (isStoodUp && agent.velocity.magnitude > 0 || isFighting) //if player is moving
+                    if (isStoodUp || isFighting) //if player is moving
                     {
                         isPickedUp = true;
                         player.isHoldingChild = true;
@@ -104,6 +105,6 @@ public class ChildController : MonoBehaviour
        
        isFighting = true;
        isWalkingtoFight = true;
-       agent.SetDestination(exit.position);
+       agent.SetDestination(fight   .position);
     }
 }

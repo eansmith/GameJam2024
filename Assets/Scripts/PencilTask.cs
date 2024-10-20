@@ -12,6 +12,7 @@ public class PencilTask : MonoBehaviour, Task
     public float task_timer;
     public float health_timer;
     public bool decreasing;
+    public GameObject[] pencils;
     void Start()
     {
         task_timer = 0;
@@ -38,13 +39,16 @@ public class PencilTask : MonoBehaviour, Task
         else if (Input.GetKeyDown("x") && inRadius && active)
         {
             clicks++;
-            Debug.Log(clicks);
+            pencils[clicks - 1].SetActive(false);
         }
          
     }
 
     public void Activate(){
-        Debug.Log("Active");
+        for (int i = 0; i < pencils.Length; i++)
+        {
+            pencils[i].SetActive(true);
+        }
         taskUI.SetActive(true);           
         active = true;
         
