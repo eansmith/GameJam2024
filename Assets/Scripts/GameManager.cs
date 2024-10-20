@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
    public float kid_timer;
    public float task_timer;
    public GameObject player;
+   
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
