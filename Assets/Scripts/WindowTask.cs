@@ -1,44 +1,96 @@
 using UnityEngine;
+using TMPro;
 
-public class WindowTask : MonoBehaviour, Task
+public class WindowTask : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    public float activateDistance;
     public Camera cam;
-    public int clicks;
-    public GameManager gm; 
+    public int clicks; // Num clicks to wipe window
+    public GameObject taskUI; // UI text that appears when task is active
+    public GameObject dirtyWindow;
+    public float wipeTimeLimit = 30f; // Time limit for wiping window
+    private float healthLossTimer = 0f; // Timer to track health loss
+    private bool isTaskActive = false; // If task is active
+    public Player player;
 
-    public GameObject taskUI;
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        taskUI = this.gameObject.transform.GetChild(0).gameObject;
-        taskUI.SetActive(false);       
+        taskUI.SetActive(false); // Start with activation text hidden
+        dirtyWindow.SetActive(false); // Start with dirty window hidden
+        player = FindFirstObjectByType<Player>(); // Find Player in scene
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (clicks >= 5){
-            Deactivate();
-        }
-
-        else if (Input.GetKeyDown("x"))
+        if (isTaskActive)
         {
-            clicks++;
+            if (IsPlayerClose())
+            {
+                taskUI.SetActive(true); // Show activation text
+
+                if (Input.GetKeyDown(KeyCode.C)) // wiping window
+                {
+                    clicks++;
+                    IncreaseTransparency();
+                    if (clicks >= 30)
+                    {
+                        Deactivate(); // Complete task
+                    }
+                }
+            }
+            else
+            {
+                taskUI.SetActive(false); // Hide text if player is not close
+            }
+
+            // Manage health loss
+            healthLossTimer += Time.deltaTime;
+            if (healthLossTimer >= wipeTimeLimit)
+            {
+                player.ReduceHealth(1f * Time.deltaTime); // Reduce health by 1 per second
+            }
         }
     }
 
-    public void Activate(){
-        gm.taskActive = true;
-        if (Vector3.Distance(cam.transform.position, this.transform.position) < activateDistance){
-            taskUI.SetActive(true);
+    public void Activate()
+    {
+        isTaskActive = true; // Mark task as active
+        dirtyWindow.SetActive(true); // Show dirty window
+        clicks = 0; // Reset clicks
+        healthLossTimer = 0f; // Reset health loss timer
+    }
+
+    public void Deactivate()
+    {
+        isTaskActive = false; // Mark task as inactive
+        dirtyWindow.SetActive(false); // Hide dirty window
+        taskUI.SetActive(false); // Hide activation text
+    }
+
+    private bool IsPlayerClose()
+    {
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, GetComponent<SphereCollider>().radius);
+        foreach (var hitCollider in hitColliders)
+        {
+            if (hitCollider.CompareTag("Player")) ///////////// Assuming player has the tag "Player"
+            {
+                return true; // Player close enough
+            }
         }
+        return false; // Player not close enough
     }
 
-    public void Deactivate(){
-        gm.taskActive = false;
-        clicks = 0;
-        taskUI.SetActive(false);
-    }
+    private void IncreaseTransparency()
+    {
+        var renderer = dirtyWindow.GetComponent<Renderer>();
+        Color color = renderer.material.color;
+        color.a += 1f / 30f; // Increase transparency per click (30 total to fully wipe)
+        renderer.material.color = color;
 
+        if (color.a > 1f)
+        {
+            color.a = 1f;
+        }
+        renderer.material.color = color;
+    }
 }
