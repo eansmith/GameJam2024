@@ -51,7 +51,9 @@ public class PencilTask : MonoBehaviour, Task
         }
         taskUI.SetActive(true);           
         active = true;
-        
+        task_timer = 0;
+        decreasing = false;
+
     }
 
     public void Deactivate(){
@@ -59,6 +61,7 @@ public class PencilTask : MonoBehaviour, Task
         clicks = 0;
         taskUI.SetActive(false);
         active = false;
+        
         CancelInvoke("ReducePlayerHealth");
     }
 
@@ -76,7 +79,7 @@ public class PencilTask : MonoBehaviour, Task
     }
 
     public void ReducePlayerHealth(){
-        player.ReduceHealth(1);
+        player.ReduceHealth(0.1f);
         Debug.Log(player.GetHealth());
     }
 }

@@ -24,12 +24,13 @@ public class Screen : MonoBehaviour
     void Update()
     {
         // Measure time since last slide change for health reduction (exclusing exempt slides)
-        if (isClickable || currentSlide == 0 || currentSlide == 9 || currentSlide == 18)
+        if (isClickable || currentSlide == 0 || currentSlide == 17)
         {
             healthTimer += Time.deltaTime;
             if(healthTimer >= 10f) // 10 sec pass without a slide change = health reduction
             {
-                Player.ReduceHealth(5f); // Reduce health by 5
+                
+                Player.ReduceHealth(0.5f); // Reduce health by 5
                 healthTimer = 0f; // Reset health timer
             }
         }
@@ -58,7 +59,7 @@ public class Screen : MonoBehaviour
         }
         else {
             // Hide the timer on exempt slides
-            if (currentSlide == 0 || currentSlide == 9 || currentSlide == 18)
+            if (currentSlide == 0 || currentSlide == 17)
             {
                 //countdownText.gameObject.SetActive(false);
             }
@@ -68,7 +69,7 @@ public class Screen : MonoBehaviour
     void OnMouseDown()
     {
         // Allow clicking if timer expired OR on exempt slides
-        if (isClickable || currentSlide == 0 || currentSlide == 9 || currentSlide == 18)
+        if (isClickable || currentSlide == 0 || currentSlide == 17)
         {
             currentSlide++;
             if (currentSlide >= slides.Length)
@@ -79,7 +80,7 @@ public class Screen : MonoBehaviour
             healthTimer = 0f; // Reset health timer on slide change
 
             // Reset click restriction if moving away from specific slides
-            if (currentSlide != 0 && currentSlide != 9 && currentSlide != 18)
+            if (currentSlide != 0 && currentSlide != 17)
             {
                 isClickable = false; // Disable clicking until timer expires
             }
