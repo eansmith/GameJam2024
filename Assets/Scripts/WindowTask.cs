@@ -1,96 +1,93 @@
 using UnityEngine;
 using TMPro;
 
-public class WindowTask : MonoBehaviour
+public class WindowTask : MonoBehaviour, Task
 {
+    public Player player;
     public Camera cam;
     public int clicks; // Num clicks to wipe window
     public GameObject taskUI; // UI text that appears when task is active
     public GameObject dirtyWindow;
-    public float wipeTimeLimit = 30f; // Time limit for wiping window
-    private float healthLossTimer = 0f; // Timer to track health loss
-    private bool isTaskActive = false; // If task is active
-    public Player player;
-
+    public float task_timer;
+    private bool inRadius;
+    private bool active;
+    public bool decreasing;
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        taskUI.SetActive(false); // Start with activation text hidden
-        dirtyWindow.SetActive(false); // Start with dirty window hidden
-        player = FindFirstObjectByType<Player>(); // Find Player in scene
+        task_timer = 0;
+        taskUI.SetActive(false);
+        dirtyWindow.SetActive(false);
+        decreasing = false;
     }
 
     void Update()
     {
-        if (isTaskActive)
+        task_timer += Time.deltaTime;
+
+        if (task_timer >= 30 && !decreasing)
         {
-            if (IsPlayerClose())
-            {
-                taskUI.SetActive(true); // Show activation text
+            decreasing = true; // Start losing health
+            InvokeRepeating("ReducePlayerHealth", 1f, 1f);
+        }
 
-                if (Input.GetKeyDown(KeyCode.C)) // wiping window
-                {
-                    clicks++;
-                    IncreaseTransparency();
-                    if (clicks >= 30)
-                    {
-                        Deactivate(); // Complete task
-                    }
-                }
-            }
-            else
-            {
-                taskUI.SetActive(false); // Hide text if player is not close
-            }
-
-            // Manage health loss
-            healthLossTimer += Time.deltaTime;
-            if (healthLossTimer >= wipeTimeLimit)
-            {
-                player.ReduceHealth(1f * Time.deltaTime); // Reduce health by 1 per second
-            }
+        if (clicks == 30)
+        {
+            Deactivate();
+        }
+        else if (Input.GetKeyDown("c") && inRadius && active) // Wiping window
+        {
+            clicks++;
+            IncreaseTransparency();
         }
     }
 
     public void Activate()
     {
-        isTaskActive = true; // Mark task as active
-        dirtyWindow.SetActive(true); // Show dirty window
-        clicks = 0; // Reset clicks
-        healthLossTimer = 0f; // Reset health loss timer
+        dirtyWindow.SetActive(true);
+        taskUI.SetActive(true);
+        active = true;
+        task_timer = 0;
+        clicks = 0;
+        decreasing = false;
+        CancelInvoke("ReducePlayerHealth");
     }
 
     public void Deactivate()
     {
-        isTaskActive = false; // Mark task as inactive
-        dirtyWindow.SetActive(false); // Hide dirty window
-        taskUI.SetActive(false); // Hide activation text
+        dirtyWindow.SetActive(false);
+        taskUI.SetActive(false);
+        active = false;
+        CancelInvoke("ReducePlayerHealth");
     }
 
-    private bool IsPlayerClose()
+    private void OnTriggerEnter(Collider other)
     {
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, GetComponent<SphereCollider>().radius);
-        foreach (var hitCollider in hitColliders)
+        if (other.tag == "Player" && active)
         {
-            if (hitCollider.CompareTag("Player")) ///////////// Assuming player has the tag "Player"
-            {
-                return true; // Player close enough
-            }
+            inRadius = true;
         }
-        return false; // Player not close enough
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Player" && active)
+        {
+            inRadius = false;
+        }
     }
 
     private void IncreaseTransparency()
     {
         var renderer = dirtyWindow.GetComponent<Renderer>();
         Color color = renderer.material.color;
-        color.a += 1f / 30f; // Increase transparency per click (30 total to fully wipe)
+        color.a += 1f / 30f;
         renderer.material.color = color;
+    }
 
-        if (color.a > 1f)
-        {
-            color.a = 1f;
-        }
-        renderer.material.color = color;
+    public void ReducePlayerHealth()
+    {
+        player.ReduceHealth(1);
     }
 }
