@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 public class GameManager : MonoBehaviour
 {
     //public ChildController [] children; 
-<<<<<<< HEAD
+
    public GameObject[] children;
     public int taskInd;
    public GameObject [] tasks; 
@@ -20,24 +20,10 @@ public class GameManager : MonoBehaviour
    public float kid_timer;
    public float task_timer;
    public GameObject player;
-
-   public GameObject booktask;
-   
-=======
-    public GameObject[] children;
-    public GameObject[] tasks;
-    public GameObject[] desks;
-    public int taskInd; //current task
-    public bool taskActive;
-    public bool kid_counting; //is counter already counting
-    public bool task_counting;
-    public bool kid_standing = false;
-    public float kid_timer;
-    public float task_timer;
     public bool isStarted = false;
-    public GameObject player;
+    public GameObject booktask;
+   
 
->>>>>>> 79a67a11023e94d4f947310c8039e9244bf68a42
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -59,14 +45,12 @@ public class GameManager : MonoBehaviour
 
     }
 
-<<<<<<< HEAD
 
-=======
     public void StartGame()
     {
         isStarted = true;
     }
->>>>>>> 79a67a11023e94d4f947310c8039e9244bf68a42
+
 
     // Update is called once per frame
     void Update()
@@ -189,7 +173,8 @@ public class GameManager : MonoBehaviour
             //task already active - player loses points and move to next task
             player.GetComponent<Player>().ReduceHealth(10);
         }
-<<<<<<< HEAD
+
+
         else{
             //activate a new task that is not already active
             if(taskInd == 0 && !tasks[0].GetComponent<Task>().IsActive()){
@@ -204,13 +189,8 @@ public class GameManager : MonoBehaviour
                 taskInd = 0;
             }
 
-=======
-        else
-        {
-            //activate a new task
-            tasks[0].GetComponent<Task>().Activate();
-            taskActive = true;
->>>>>>> 79a67a11023e94d4f947310c8039e9244bf68a42
+
+
         }
 
     }
