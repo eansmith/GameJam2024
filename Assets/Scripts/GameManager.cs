@@ -1,13 +1,17 @@
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
-   public GameObject [] children; 
+    //public ChildController [] children; 
+   public GameObject[] children;
    public GameObject [] tasks; 
    public int taskInd; //current task
    public bool taskActive; 
    public bool kid_counting; //is counter already counting
    public bool task_counting;
+   public bool kid_standing = false;
    public float kid_timer;
    public float task_timer;
    public GameObject player;
@@ -22,7 +26,7 @@ public class GameManager : MonoBehaviour
 
         player = GameObject.Find("Player");
         children = GameObject.FindGameObjectsWithTag("Child");
-        tasks = GameObject.FindGameObjectsWithTag("TaskItem");
+        //tasks = GameObject.FindGameObjectsWithTag("TaskItem");
 
     }
 
@@ -53,9 +57,21 @@ public class GameManager : MonoBehaviour
             kid_timer -= Time.deltaTime;
 
         }
-        if (kid_timer<=0){
+        if (kid_timer<=0 && !kid_standing){
             kid_counting = false;
-            KidStandUp();
+
+            int fightOrLeave = Random.Range(0, 10);
+            if(fightOrLeave > 4)
+            {
+                kid_standing = true;
+                KidStandUp();
+            }
+            else
+            {
+                kid_standing = true;
+                KidFight();
+            }
+            
         }
 
     }
@@ -65,8 +81,22 @@ public class GameManager : MonoBehaviour
     */
 
     void KidStandUp(){
-        int kidInd = Random.Range(0, 8);
-        //children[kidInd].GetComponent<ChildController>().StandUp();
+        int kidInd = Random.Range(0, children.Length);
+        Debug.Log(kidInd);
+        children[kidInd].GetComponent<ChildController>().StandUp();
+    }
+
+    void KidFight()
+    {
+        int kidInd = 0; 
+        int kidInd2 = 0;
+        do
+        {
+            kidInd = Random.Range(0, children.Length);
+            kidInd2 = Random.Range(0, children.Length);
+        } while (kidInd == kidInd2);
+        children[kidInd].GetComponent<ChildController>().Fight();
+        children[kidInd2].GetComponent<ChildController>().Fight();
     }
 
     /*
