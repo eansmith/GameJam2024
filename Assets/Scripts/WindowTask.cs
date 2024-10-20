@@ -1,5 +1,3 @@
-// Start is called once before the first execution of Update after the MonoBehaviour is created
-
 using UnityEngine;
 using TMPro;
 
@@ -12,26 +10,25 @@ public class WindowTask : MonoBehaviour
     public float wipeTimeLimit = 30f; // Time limit for wiping window
     private float healthLossTimer = 0f; // Timer to track health loss
     private bool isTaskActive = false; // If task is active
-    private Player player;
+    public Player player;
 
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         taskUI.SetActive(false); // Start with activation text hidden
         dirtyWindow.SetActive(false); // Start with dirty window hidden
-        player = FindObjectOfType<Player>(); // Find Player in scene
+        player = FindFirstObjectByType<Player>(); // Find Player in scene
     }
 
     void Update()
     {
         if (isTaskActive)
         {
-            // Check for player proximity using spherical collider
             if (IsPlayerClose())
             {
                 taskUI.SetActive(true); // Show activation text
 
-                // Handle 'C' key press for wiping window
-                if (Input.GetKeyDown(KeyCode.C))
+                if (Input.GetKeyDown(KeyCode.C)) // wiping window
                 {
                     clicks++;
                     IncreaseTransparency();
@@ -72,7 +69,6 @@ public class WindowTask : MonoBehaviour
 
     private bool IsPlayerClose()
     {
-        // Use spherical collider to check if player is within range
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, GetComponent<SphereCollider>().radius);
         foreach (var hitCollider in hitColliders)
         {
@@ -86,7 +82,6 @@ public class WindowTask : MonoBehaviour
 
     private void IncreaseTransparency()
     {
-        // Assuming dirty window has a material with a shader that supports transparency
         var renderer = dirtyWindow.GetComponent<Renderer>();
         Color color = renderer.material.color;
         color.a += 1f / 30f; // Increase transparency per click (30 total to fully wipe)
