@@ -116,7 +116,7 @@ public class GameManager : MonoBehaviour
         Show score and game over screen
     */
     void GameOver(){
-
+        
     }
 
 }
