@@ -540,8 +540,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: You Win!
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 0005f5d6f875c2041995204fb60562b2, type: 2}
-  m_sharedMaterial: {fileID: 2589635430997334947, guid: 0005f5d6f875c2041995204fb60562b2, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 5fce96b78557b4049828e8c109629644, type: 2}
+  m_sharedMaterial: {fileID: -2593873584849389165, guid: 5fce96b78557b4049828e8c109629644, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -797,8 +797,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Play Again
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 0005f5d6f875c2041995204fb60562b2, type: 2}
-  m_sharedMaterial: {fileID: 2589635430997334947, guid: 0005f5d6f875c2041995204fb60562b2, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 5fce96b78557b4049828e8c109629644, type: 2}
+  m_sharedMaterial: {fileID: -2593873584849389165, guid: 5fce96b78557b4049828e8c109629644, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

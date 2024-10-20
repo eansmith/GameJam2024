@@ -20,7 +20,7 @@ public class BookTask : MonoBehaviour, Task
 
     public float task_timer;
     bool decreasing;
-    GameObject taskUI;
+    public GameObject taskUI;
 
     string word;
     int wordind;
@@ -35,7 +35,7 @@ public class BookTask : MonoBehaviour, Task
         cvsc = this.transform.GetChild(6).gameObject;
 
         //cvs = this;
-        taskUI = this.gameObject.transform.GetChild(6).gameObject;
+        //taskUI = this.gameObject.transform.GetChild(6).gameObject;
         taskUI.SetActive(false);
         //this.setActive(false);
         decreasing  = false;
@@ -189,10 +189,18 @@ public class BookTask : MonoBehaviour, Task
     public void Activate(){
         Debug.Log("active");
 
+        L1.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(255, 255, 255);
+        L2.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(255, 255, 255);
+        L3.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(255, 255, 255);
+        L4.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(255, 255, 255);
+
+        wordind = 0;
+
         //this.SetActive(true);  
         taskUI.SetActive(true);         
         active = true;
         string st = "BOQK";
+        word = "";
         //char c = st[Random.Range(0, st.Length)];
 
         char c = st[Random.Range(0, st.Length)];

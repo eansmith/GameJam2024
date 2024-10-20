@@ -62,6 +62,11 @@ public class WindowTask : MonoBehaviour, Task
         CancelInvoke("ReducePlayerHealth");
     }
 
+    public bool isActive()
+    {
+        return active;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player" && active)
@@ -89,5 +94,10 @@ public class WindowTask : MonoBehaviour, Task
     public void ReducePlayerHealth()
     {
         player.ReduceHealth(1);
+    }
+
+    public bool IsActive()
+    {
+        throw new System.NotImplementedException();
     }
 }

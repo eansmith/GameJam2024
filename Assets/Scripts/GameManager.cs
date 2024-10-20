@@ -37,9 +37,9 @@ public class GameManager : MonoBehaviour
 
         player = GameObject.Find("Player");
         children = GameObject.FindGameObjectsWithTag("Child");
-        desks = GameObject.FindGameObjectsWithTag("Desk");
+        //desks = GameObject.FindGameObjectsWithTag("Desk");
         tasks = GameObject.FindGameObjectsWithTag("TaskItem");
-        booktask = GameObject.Find("BookTask");
+        //booktask = GameObject.Find("BookTask");
 
         taskInd = 0;
 
@@ -198,7 +198,7 @@ public class GameManager : MonoBehaviour
     /*
         Show score and game over screen
     */
-    public IEnumerator GameOver()
+    /*public IEnumerator GameOver()
     {
         yield return WaitAndLose();
     }
@@ -223,6 +223,16 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(5);
         SceneManager.LoadScene("LoseScene");
 
+    }*/
+    public void GameOver()
+    {
+        Debug.Log("here2");
+        SceneManager.LoadScene("LoseScene");
+    }
+
+    public void WinGame()
+    {
+        SceneManager.LoadScene("WinScene");
     }
 
 }
