@@ -61,6 +61,7 @@ public class GameManager : MonoBehaviour
             kid_counting = false;
 
             int fightOrLeave = Random.Range(0, 10);
+            print(fightOrLeave);
             if(fightOrLeave > 4)
             {
                 kid_standing = true;
@@ -82,7 +83,7 @@ public class GameManager : MonoBehaviour
 
     void KidStandUp(){
         int kidInd = Random.Range(0, children.Length);
-        Debug.Log(kidInd);
+        
         children[kidInd].GetComponent<ChildController>().StandUp();
     }
 

@@ -1,4 +1,5 @@
 using System.Runtime.InteropServices;
+using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -23,33 +24,52 @@ public class ChildController : MonoBehaviour
 
     public float pickUpDistance = 3;
     public Player player;
-
+    public GameObject pickupText;
     void Start()
     {
         animator = GetComponent<Animator>();
+        agent.SetDestination(chair.position);
+
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        /*if (Input.GetKeyDown(KeyCode.E))
         {
             StandUp();
         }
         if (Input.GetKeyDown(KeyCode.F))
         {
             Fight();
+        }*/
+        if (!isPickedUp && !isWalkingtoFight && !player.isHoldingChild)
+        {
+            if ((isStoodUp || isFighting)) //if player is moving
+            {
+                if(Vector3.Distance(cam.transform.position, this.transform.position) < pickUpDistance) { 
+                    pickupText.SetActive(true);
+                }
+                else
+                {
+                    pickupText.SetActive(false);
+                }
+            }
+            
         }
-        if (Input.GetMouseButtonDown(0) && Vector3.Distance(cam.transform.position, this.transform.position) < pickUpDistance)
+       
+        if (Input.GetKeyDown(KeyCode.F) && Vector3.Distance(cam.transform.position, this.transform.position) < pickUpDistance)
         {
                 
                 if (!isPickedUp && !isWalkingtoFight && !player.isHoldingChild)
                 {
                     if (isStoodUp || isFighting) //if player is moving
                     {
+                        pickupText.SetActive(false);
                         isPickedUp = true;
                         player.isHoldingChild = true;
                         animator.SetBool("IsPickedUp", true);
                     }
                 }
+            
                 //else
                 //{
                    // isPickedUp = !isPickedUp;
@@ -96,6 +116,7 @@ public class ChildController : MonoBehaviour
         isWalkingtoFight = false;
         animator.SetBool("IsPickedUp", false);
         agent.Warp(chair.transform.position);
+        agent.SetDestination(chair.position);
         player.isHoldingChild = false;
 
     }
