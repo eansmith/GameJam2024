@@ -46,7 +46,7 @@ public class Screen : MonoBehaviour
             
             if(remainingTime >= 0)
             {
-                countdownText.text = $"Can proceed in\n{remainingTime:D} seconds";
+                countdownText.text = $"Can proceed in {remainingTime:D} seconds";
                 countdownText.gameObject.SetActive(true); // Show timer while waiting
             }
             if (remainingTime <= 0)
