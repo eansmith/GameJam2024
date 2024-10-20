@@ -6,6 +6,7 @@ public class WindowTask : MonoBehaviour, Task
     public float activateDistance;
     public Camera cam;
     public int clicks;
+    public GameManager gm; 
 
     public GameObject taskUI;
     void Start()
@@ -17,7 +18,7 @@ public class WindowTask : MonoBehaviour, Task
     // Update is called once per frame
     void Update()
     {
-        if (clicks>=5){
+        if (clicks >= 5){
             Deactivate();
         }
 
@@ -28,12 +29,16 @@ public class WindowTask : MonoBehaviour, Task
     }
 
     public void Activate(){
+        gm.taskActive = true;
         if (Vector3.Distance(cam.transform.position, this.transform.position) < activateDistance){
             taskUI.SetActive(true);
         }
     }
 
     public void Deactivate(){
-        
+        gm.taskActive = false;
+        clicks = 0;
+        taskUI.SetActive(false);
     }
+
 }
