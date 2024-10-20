@@ -79,11 +79,11 @@ public class GameManager : MonoBehaviour
             task_counting = true;
             //task_timer = Random.Range(30,40);
             task_timer = 10;
-            Debug.Log(task_timer);
+            //Debug.Log(task_timer);
         }
         else{
             task_timer -= Time.deltaTime;
-            Debug.Log(task_timer);
+            //Debug.Log(task_timer);
 
         }
         
@@ -116,7 +116,7 @@ public class GameManager : MonoBehaviour
         Show score and game over screen
     */
     void GameOver(){
-
+        
     }
 
 }
